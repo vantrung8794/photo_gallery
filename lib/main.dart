@@ -50,7 +50,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const SizedBox(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          PhotoGallery.showPhotoGallery(context, urls: items);
+          PhotoGallery.showPhotoGallery(context,
+              urls: items, selectedIndex: 10);
         },
         child: const Icon(Icons.add),
       ),

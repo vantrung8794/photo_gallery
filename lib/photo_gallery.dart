@@ -7,11 +7,18 @@ class PhotoGallery extends StatefulWidget {
   static showPhotoGallery(
     BuildContext context, {
     required List<String> urls,
+    int selectedIndex = 0,
   }) {
+    var _selectedIndex =
+        selectedIndex >= urls.length ? urls.length - 1 : selectedIndex;
+
     Navigator.of(context).push(
       PageRouteBuilder(
         opaque: false,
-        pageBuilder: (_, __, ___) => PhotoGallery(urls: urls),
+        pageBuilder: (_, __, ___) => PhotoGallery(
+          urls: urls,
+          selectedIndex: _selectedIndex,
+        ),
       ),
     );
   }
@@ -19,18 +26,25 @@ class PhotoGallery extends StatefulWidget {
   const PhotoGallery({
     Key? key,
     required this.urls,
+    required this.selectedIndex,
   }) : super(key: key);
 
   final List<String> urls;
+  final int selectedIndex;
 
   @override
   State<PhotoGallery> createState() => _PhotoGalleryState();
 }
 
 class _PhotoGalleryState extends State<PhotoGallery> {
-  final pageController = PageController();
+  late PageController pageController;
   bool isShowLeftNarrow = false;
   bool isShowRightNarrow = true;
+  @override
+  void initState() {
+    pageController = PageController(initialPage: widget.selectedIndex);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
