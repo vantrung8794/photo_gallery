@@ -56,45 +56,50 @@ class _PhotoGalleryState extends State<PhotoGallery> {
       backgroundColor: Colors.transparent,
       body: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
-        child: Container(
-          color: Colors.black45.withOpacity(0.4),
-          child: Stack(
-            children: [
-              Positioned.fill(
-                child: PageView(
-                  onPageChanged: (value) {
-                    setState(() {
-                      isShowLeftNarrow = value != 0;
-                      isShowRightNarrow = value != (widget.urls.length - 1);
-                    });
-                    widget.onChangedIndex?.call(value);
-                  },
-                  physics: const ClampingScrollPhysics(),
-                  controller: pageController,
-                  children: widget.urls.map((e) {
-                    return Center(
-                      child: CachedNetworkImage(
-                        imageUrl: e,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(
-                          color: Colors.black87,
+        child: GestureDetector(
+          onDoubleTap: (() {
+            Navigator.of(context).pop();
+          }),
+          child: Container(
+            color: Colors.black45.withOpacity(0.4),
+            child: Stack(
+              children: [
+                Positioned.fill(
+                  child: PageView(
+                    onPageChanged: (value) {
+                      setState(() {
+                        isShowLeftNarrow = value != 0;
+                        isShowRightNarrow = value != (widget.urls.length - 1);
+                      });
+                      widget.onChangedIndex?.call(value);
+                    },
+                    physics: const ClampingScrollPhysics(),
+                    controller: pageController,
+                    children: widget.urls.map((e) {
+                      return Center(
+                        child: CachedNetworkImage(
+                          imageUrl: e,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(
+                            color: Colors.black87,
+                          ),
                         ),
-                      ),
-                    );
-                  }).toList(),
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
-              const CloseButton(),
-              if (isShowLeftNarrow)
-                LeftNarrow(
-                  pageController: pageController,
-                ),
-              if (isShowRightNarrow)
-                RightNarrow(
-                  pageController: pageController,
-                  maxLength: widget.urls.length,
-                ),
-            ],
+                const CloseButton(),
+                if (isShowLeftNarrow)
+                  LeftNarrow(
+                    pageController: pageController,
+                  ),
+                if (isShowRightNarrow)
+                  RightNarrow(
+                    pageController: pageController,
+                    maxLength: widget.urls.length,
+                  ),
+              ],
+            ),
           ),
         ),
       ),
