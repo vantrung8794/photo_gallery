@@ -8,6 +8,7 @@ class PhotoGallery extends StatefulWidget {
     BuildContext context, {
     required List<String> urls,
     int selectedIndex = 0,
+    Function(int)? onChangedIndex,
   }) {
     var _selectedIndex =
         selectedIndex >= urls.length ? urls.length - 1 : selectedIndex;
@@ -18,6 +19,7 @@ class PhotoGallery extends StatefulWidget {
         pageBuilder: (_, __, ___) => PhotoGallery(
           urls: urls,
           selectedIndex: _selectedIndex,
+          onChangedIndex: onChangedIndex,
         ),
       ),
     );
@@ -27,10 +29,12 @@ class PhotoGallery extends StatefulWidget {
     Key? key,
     required this.urls,
     required this.selectedIndex,
+    this.onChangedIndex,
   }) : super(key: key);
 
   final List<String> urls;
   final int selectedIndex;
+  final Function(int)? onChangedIndex;
 
   @override
   State<PhotoGallery> createState() => _PhotoGalleryState();
@@ -63,6 +67,7 @@ class _PhotoGalleryState extends State<PhotoGallery> {
                       isShowLeftNarrow = value != 0;
                       isShowRightNarrow = value != (widget.urls.length - 1);
                     });
+                    widget.onChangedIndex?.call(value);
                   },
                   physics: const ClampingScrollPhysics(),
                   controller: pageController,

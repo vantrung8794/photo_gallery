@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer' as developer;
 import 'package:photo_gallery/photo_gallery.dart';
 
 void main() {
@@ -50,8 +51,14 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const SizedBox(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          PhotoGallery.showPhotoGallery(context,
-              urls: items, selectedIndex: 10);
+          PhotoGallery.showPhotoGallery(
+            context,
+            urls: items,
+            selectedIndex: 0,
+            onChangedIndex: (index) {
+              developer.log('$index');
+            },
+          );
         },
         child: const Icon(Icons.add),
       ),
