@@ -4,6 +4,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class PhotoGallery extends StatefulWidget {
+  static showPhotoGallery(
+    BuildContext context, {
+    required List<String> urls,
+  }) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        opaque: false,
+        pageBuilder: (_, __, ___) => PhotoGallery(urls: urls),
+      ),
+    );
+  }
+
   const PhotoGallery({
     Key? key,
     required this.urls,

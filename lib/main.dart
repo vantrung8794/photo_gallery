@@ -1,13 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_gallery/photo_gallery.dart';
 
-final items = [
-  'https://meta.vn/Data/image/2022/01/13/anh-dep-thien-nhien-3.jpg',
-  'https://baoquocte.vn/stores/news_dataimages/dieulinh/012020/29/15/nhung-buc-anh-dep-tuyet-voi-ve-tinh-ban.jpg',
-  'https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg',
-  'https://bloganh.net/wp-content/uploads/2021/03/chup-anh-dep-anh-sang-min.jpg',
-];
-
 void main() {
   runApp(const MyApp());
 }
@@ -40,6 +33,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final items = [
+    'https://meta.vn/Data/image/2022/01/13/anh-dep-thien-nhien-3.jpg',
+    'https://baoquocte.vn/stores/news_dataimages/dieulinh/012020/29/15/nhung-buc-anh-dep-tuyet-voi-ve-tinh-ban.jpg',
+    'https://kenh14cdn.com/thumb_w/660/2020/7/17/brvn-15950048783381206275371.jpg',
+    'https://bloganh.net/wp-content/uploads/2021/03/chup-anh-dep-anh-sang-min.jpg',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,12 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: const SizedBox(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            PageRouteBuilder(
-              opaque: false,
-              pageBuilder: (_, __, ___) => PhotoGallery(urls: items),
-            ),
-          );
+          PhotoGallery.showPhotoGallery(context, urls: items);
         },
         child: const Icon(Icons.add),
       ),
